@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/767994/fd3af2375190408d87d063d64394477a
+bundleId: https://api.rpubs.com/api/v1/document/767994/fd3af2375190408d87d063d64394477a
+url: http://rpubs.com/phiggins/767994
+when: 1620699349.8419

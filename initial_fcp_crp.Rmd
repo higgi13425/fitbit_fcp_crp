@@ -26,6 +26,8 @@ data <- read_excel('FitBIt_FCP_CRP_05-10-21.xlsx',
 
 Going for a spaghetti plot by patient, with summary lines by group.
 
+### First FCP
+
 ```{r spag-fcp, warning=FALSE}
 data %>% 
 ggplot(aes(x = visit, y = fcp, 
@@ -42,6 +44,8 @@ ggplot(aes(x = visit, y = fcp,
 ```
 
 Tiny difference in intercept for FCP, but slopes look the same for failure vs success of taper.
+
+### Now CRP
 
 ```{r spag-crp, warning=FALSE}
 data %>% 
