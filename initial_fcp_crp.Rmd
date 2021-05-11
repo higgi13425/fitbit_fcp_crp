@@ -1,0 +1,57 @@
+---
+title: "Fitbit Early Peek at CRP and FCP"
+author: "Peter Higgins"
+date: "5/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+```
+
+## First look at Fitbit Data
+
+Let's read in data from first 18 completers, only FCP, CRP, and outcome.
+
+```{r data, warning=FALSE}
+data <- read_excel('FitBIt_FCP_CRP_05-10-21.xlsx',
+        col_types = c("text","numeric","numeric","numeric","numeric","numeric","text","numeric","numeric","numeric"))  %>% 
+  mutate(success = case_when(status ==2 ~ 1, TRUE ~ 0))
+ 
+```
+
+## Plotting
+
+Going for a spaghetti plot by patient, with summar lines by group.
+
+```{r spag-fcp, warning=FALSE}
+data %>% 
+ggplot(aes(x = visit, y = fcp, 
+             col = factor(success), group = factor(sbj_id))) +
+  geom_line(size = 0.5, alpha = 0.3) +
+  geom_smooth(aes(group = factor(success)), 
+      se = FALSE, method = "lm", size = 2) +
+  scale_color_manual(values = c("indianred1", "dodgerblue")) +
+  labs(y = "Fecal Calprotectin",
+       x = "Visit Number",
+       col = "Taper Success") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = c(0.75, 0.8))
+```
+
+```{r spag-crp, warning=FALSE}
+data %>% 
+ggplot(aes(x = visit, y = crp, 
+             col = factor(success), group = factor(sbj_id))) +
+  geom_line(size = 0.5, alpha = 0.3) +
+  geom_smooth(aes(group = factor(success)), 
+      se = FALSE, method = "lm", size = 2) +
+  scale_color_manual(values = c("indianred1", "dodgerblue")) +
+  labs(y = "C-Reactive Protein",
+       x = "Visit Number",
+       col = "Taper Success") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = c(0.75, 0.8))
+```
